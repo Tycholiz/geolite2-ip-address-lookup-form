@@ -18,14 +18,26 @@ const StyledTextField = styled(TextField)`
   margin-right: 16px;
 `;
 
+const StyledErrorMessage = styled(Typography)`
+  color: red;
+  margin-top: 0;
+`;
+
 export function IpLookupForm() {
   const [formIpAddress, setFormIpAddress] = useState("");
   const [ipAddresses, setIpAddresses] = useState<string[]>([]);
+  const [isValidIpAddress, setIsValidIpAddress] = useState(true);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIpAddresses([...ipAddresses, formIpAddress]);
-    setFormIpAddress("");
+    const ipRegex = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/;
+    if (ipRegex.test(formIpAddress)) {
+      setIsValidIpAddress(true);
+      setIpAddresses([...ipAddresses, formIpAddress]);
+      setFormIpAddress("");
+    } else {
+      setIsValidIpAddress(false);
+    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,6 +54,11 @@ export function IpLookupForm() {
         To begin, enter an IP address. When you have entered all the IP
         addresses that you want to geolocate, hit the 'Geolocate!' button.
       </Typography>
+      {!isValidIpAddress && (
+        <StyledErrorMessage variant="caption">
+          Please enter a valid IP address.
+        </StyledErrorMessage>
+      )}
       <StyledForm onSubmit={handleSubmit}>
         <StyledTextField
           label="Enter an IP address"
