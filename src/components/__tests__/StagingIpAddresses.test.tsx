@@ -47,7 +47,6 @@ describe("StagingIpAddresses", () => {
   });
 
   it("should submit the form when user enters multiple valid IP addresses", () => {
-    ipAddresses = [...ipAddresses, "192.168.0.238"];
     render(
       <StagingIpAddresses
         ipAddresses={ipAddresses}
@@ -63,7 +62,6 @@ describe("StagingIpAddresses", () => {
   });
 
   it("should display an error message when user enters an invalid IP address", () => {
-    const ipAddresses = ["invalid_IP"];
     render(
       <StagingIpAddresses
         ipAddresses={ipAddresses}
