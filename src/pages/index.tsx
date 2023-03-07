@@ -2,6 +2,11 @@ import Head from "next/head";
 import { Typography } from "@mui/material";
 import styled from "styled-components";
 import { IpLookupForm } from "../components/IpLookupForm";
+import GeoLiteDS from "../data-sources/GeoLiteDS";
+
+type Props = {
+  data: any;
+};
 
 const Container = styled.div`
   display: flex;
@@ -15,7 +20,7 @@ const Title = styled(Typography)`
   font-size: 3rem;
 `;
 
-export default function Home() {
+export default function Home({ data }: Props) {
   return (
     <>
       <Head>
@@ -27,4 +32,15 @@ export default function Home() {
       </Container>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  const geoLiteDS = new GeoLiteDS();
+  const geolocationData = await geoLiteDS.getData();
+
+  return {
+    props: {
+      data: JSON.stringify(geolocationData),
+    },
+  };
 }
