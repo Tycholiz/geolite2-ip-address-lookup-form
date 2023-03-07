@@ -3,6 +3,7 @@ import { Typography } from "@mui/material";
 import styled from "styled-components";
 import { IpLookupForm } from "../components/IpLookupForm";
 import GeoLiteDS from "../data-sources/GeoLiteDS";
+import { makeObjectSerializable } from "../utils/makeObjectSerializable";
 
 type Props = {
   data: any;
@@ -40,7 +41,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      data: JSON.stringify(geolocationData),
+      data: makeObjectSerializable({ ...geolocationData }),
     },
   };
 }
