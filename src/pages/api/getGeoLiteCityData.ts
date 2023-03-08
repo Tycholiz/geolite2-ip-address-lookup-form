@@ -2,11 +2,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { City } from "@maxmind/geoip2-node";
 import GeoLiteDS from "../../data-sources/GeoLiteDS";
 
-interface RequestBody {
+export interface RequestBody {
   ipAddresses: string[];
 }
 
-interface Response {
+export interface Response {
   result?: City[];
   err?: any;
   message?: string;
