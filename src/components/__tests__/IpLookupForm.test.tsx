@@ -25,7 +25,7 @@ describe("IpLookupForm", () => {
       name: /geolocate/i,
     });
 
-    fireEvent.change(input, { target: { value: "192.168.0.1" } });
+    fireEvent.change(input, { target: { value: "24.207.43.112" } });
     fireEvent.click(addButton);
     fireEvent.click(geolocateButton);
 
