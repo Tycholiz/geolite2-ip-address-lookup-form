@@ -3,6 +3,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import styled from "@emotion/styled";
 import { localIpRegex, ipV4Regex, ipV6Regex } from "../utils/constants";
@@ -78,13 +80,15 @@ export function StagingIpAddresses({
       <List>
         {ipAddresses.map((ipAddress) => (
           <ListItem key={ipAddress}>
-            <li>{ipAddress}</li>
-            <Button
-              onClick={() => handleRemoveStagingIpAddress(ipAddress)}
-              color="error"
-            >
-              X
-            </Button>
+            <ListItemText primary={ipAddress} />
+            <ListItemButton>
+              <Button
+                onClick={() => handleRemoveStagingIpAddress(ipAddress)}
+                color="error"
+              >
+                X
+              </Button>
+            </ListItemButton>
           </ListItem>
         ))}
       </List>
