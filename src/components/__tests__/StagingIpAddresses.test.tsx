@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { StagingIpAddresses } from "../StagingIpAddresses";
 
 const mockSetIpAddresses = jest.fn();
+const mockHandleRemoveStagingIpAddress = jest.fn();
 
 describe("StagingIpAddresses", () => {
   let ipAddresses = ["123.634.34.346"];
@@ -11,6 +12,7 @@ describe("StagingIpAddresses", () => {
       <StagingIpAddresses
         ipAddresses={ipAddresses}
         setIpAddresses={mockSetIpAddresses}
+        handleRemoveStagingIpAddress={mockHandleRemoveStagingIpAddress}
       />
     );
     expect(screen.getByLabelText("Enter an IP address")).toBeInTheDocument();
@@ -22,6 +24,7 @@ describe("StagingIpAddresses", () => {
       <StagingIpAddresses
         ipAddresses={ipAddresses}
         setIpAddresses={mockSetIpAddresses}
+        handleRemoveStagingIpAddress={mockHandleRemoveStagingIpAddress}
       />
     );
     const input = screen.getByLabelText(
@@ -36,6 +39,7 @@ describe("StagingIpAddresses", () => {
       <StagingIpAddresses
         ipAddresses={ipAddresses}
         setIpAddresses={mockSetIpAddresses}
+        handleRemoveStagingIpAddress={mockHandleRemoveStagingIpAddress}
       />
     );
     const input = screen.getByLabelText(
@@ -51,6 +55,7 @@ describe("StagingIpAddresses", () => {
       <StagingIpAddresses
         ipAddresses={ipAddresses}
         setIpAddresses={mockSetIpAddresses}
+        handleRemoveStagingIpAddress={mockHandleRemoveStagingIpAddress}
       />
     );
     const input = screen.getByLabelText(
@@ -67,6 +72,7 @@ describe("StagingIpAddresses", () => {
       <StagingIpAddresses
         ipAddresses={ipAddresses}
         setIpAddresses={mockSetIpAddresses}
+        handleRemoveStagingIpAddress={mockHandleRemoveStagingIpAddress}
       />
     );
     const input = screen.getByLabelText(
