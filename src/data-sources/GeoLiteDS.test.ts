@@ -5,6 +5,7 @@ describe("GeoLiteDS", () => {
 
   test("should get data for a valid IP address", async () => {
     const ipAddress = "24.207.47.115";
+    process.env.GEO_LITE_2_LOCAL_DATABASE_LOCATION = "";
     const cityData = await geoLiteDS.getData(ipAddress);
     expect(cityData?.city?.names.en).toEqual("Delta");
     expect(cityData?.country?.isoCode).toEqual("CA");
