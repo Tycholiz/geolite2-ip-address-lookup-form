@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { City } from "@maxmind/geoip2-node";
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, CircularProgress } from "@mui/material";
 import { StagingIpAddresses } from "./StagingIpAddresses";
 import { IpResultCard } from "./IpResultCard";
 
 export function IpLookupForm() {
   const [ipAddresses, setIpAddresses] = useState<string[]>([]);
   const [ipAddressData, setIpAddressData] = useState<City[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const handleRemoveStagingIpAddress = (ipAddress: string) => {
     setIpAddresses(ipAddresses.filter((address) => address !== ipAddress));
@@ -14,6 +15,7 @@ export function IpLookupForm() {
 
   const fetchIpData = async () => {
     try {
+      setLoading(true);
       const res = await fetch("/api/getGeoLiteCityData", {
         method: "POST",
         body: JSON.stringify({
@@ -25,6 +27,8 @@ export function IpLookupForm() {
       setIpAddresses([]);
     } catch (error) {
       console.error("error: ", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -43,7 +47,12 @@ export function IpLookupForm() {
         setIpAddresses={setIpAddresses}
         handleRemoveStagingIpAddress={handleRemoveStagingIpAddress}
       />
-      <Button variant="contained" onClick={fetchIpData}>
+      <Button
+        variant="contained"
+        onClick={fetchIpData}
+        disabled={loading}
+        startIcon={loading && <CircularProgress size={16} />}
+      >
         Geolocate!
       </Button>
       {ipAddressData.length > 0 &&
