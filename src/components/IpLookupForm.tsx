@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { City } from "@maxmind/geoip2-node";
-import Typography from "@mui/material/Typography";
-import { Button, Card, CardContent } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { StagingIpAddresses } from "./StagingIpAddresses";
+import { IpResultCard } from "./IpResultCard";
 
 export function IpLookupForm() {
   const [ipAddresses, setIpAddresses] = useState<string[]>(["24.207.47.115"]);
@@ -34,25 +34,7 @@ export function IpLookupForm() {
       <Button variant="contained" onClick={fetchIpData}>
         Geolocate!
       </Button>
-      <Card>
-        <CardContent>
-          <Typography variant="h5" component="h2">
-            {ipAddressData?.country?.isoCode}
-          </Typography>
-          <Typography color="text.secondary" gutterBottom>
-            {ipAddressData?.postal?.code}
-          </Typography>
-          <Typography variant="body2" component="p">
-            {ipAddressData?.city?.names.en}
-          </Typography>
-          <Typography variant="body2" component="p">
-            {ipAddressData?.location?.timeZone}
-          </Typography>
-          <Typography variant="body2" component="p">
-            {ipAddressData?.location?.accuracyRadius}
-          </Typography>
-        </CardContent>
-      </Card>
+      {ipAddressData && <IpResultCard data={ipAddressData} />}
     </div>
   );
 }
