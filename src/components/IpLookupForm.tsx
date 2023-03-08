@@ -22,6 +22,7 @@ export function IpLookupForm() {
       });
       const data = await res.json();
       setIpAddressData(data.result);
+      setIpAddresses([]);
     } catch (error) {
       console.error("error: ", error);
     }
