@@ -37,6 +37,10 @@ export function IpLookupForm() {
     }
   };
 
+  const clearIpData = () => {
+    setIpAddressData([]);
+  };
+
   return (
     <div>
       <Typography variant="subtitle1">
@@ -64,6 +68,9 @@ export function IpLookupForm() {
         startIcon={loading && <CircularProgress size={16} />}
       >
         Geolocate!
+      </Button>
+      <Button variant="outlined" onClick={clearIpData}>
+        Clear results
       </Button>
       {ipAddressData.length > 0 &&
         ipAddressData.map((ipAddressData) => {
