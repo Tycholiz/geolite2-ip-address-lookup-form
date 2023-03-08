@@ -34,14 +34,3 @@ export default function Home({ data }: Props) {
     </>
   );
 }
-
-export async function getServerSideProps() {
-  const geoLiteDS = new GeoLiteDS();
-  const geolocationData = await geoLiteDS.getData();
-
-  return {
-    props: {
-      data: makeObjectSerializable({ ...geolocationData }),
-    },
-  };
-}
