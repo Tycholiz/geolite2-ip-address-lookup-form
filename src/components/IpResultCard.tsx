@@ -10,19 +10,19 @@ export function IpResultCard({ data }: Props) {
     <Card>
       <CardContent>
         <Typography variant="h5" component="h2">
-          {data.country?.isoCode}
+          Country Code: {data.country?.isoCode}
         </Typography>
         <Typography color="text.secondary" gutterBottom>
-          {data.postal?.code}
+          Postal Code: {data.postal?.code}
         </Typography>
         <Typography variant="body2" component="p">
-          {data.city?.names.en}
+          City: {data.city?.names.en}
         </Typography>
         <Typography variant="body2" component="p">
-          {data.location?.timeZone}
+          Timezone: {data.location?.timeZone}
         </Typography>
         <Typography variant="body2" component="p">
-          {data.location?.accuracyRadius}
+          Accuracy Radius: {data.location?.accuracyRadius}
         </Typography>
       </CardContent>
     </Card>
