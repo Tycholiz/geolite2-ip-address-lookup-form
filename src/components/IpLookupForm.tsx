@@ -26,7 +26,7 @@ export function IpLookupForm() {
         multiple IP address' at the same time.
       </Typography>
       <Typography variant="subtitle2">
-        To begin, enter an IP address. When you have entered all the PI
+        To begin, enter an IP address. When you have entered all the IP
         addresses that you want to geolocate, hit the 'Geolocate!' button.
       </Typography>
       <StagingIpAddresses
