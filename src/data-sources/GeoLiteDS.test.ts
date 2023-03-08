@@ -39,9 +39,9 @@ describe("GeoLiteDS", () => {
     expect(cityData?.country?.isoCode).toEqual("US");
   });
 
-  // test("should throw an error for an invalid IP address", async () => {
-  //   const geoLiteDS = new GeoLiteDS();
-  //   const ipAddress = "invalid-ip-address";
-  //   await expect(geoLiteDS.getData(ipAddress)).rejects.toThrowError();
-  // });
+  test("should throw an error for an invalid IP address", async () => {
+    const geoLiteDS = new GeoLiteDS();
+    const ipAddress = "invalid-ip-address";
+    await expect(geoLiteDS.getData(ipAddress)).rejects.toThrowError();
+  });
 });
