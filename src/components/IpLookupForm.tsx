@@ -1,20 +1,35 @@
 import { useState } from "react";
 import { City } from "@maxmind/geoip2-node";
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, CircularProgress } from "@mui/material";
 import { StagingIpAddresses } from "./StagingIpAddresses";
 import { IpResultCard } from "./IpResultCard";
 
 export function IpLookupForm() {
-  const [ipAddresses, setIpAddresses] = useState<string[]>(["24.207.47.115"]);
-  // TODO: modify this to hold an array, rather than single object
-  const [ipAddressData, setIpAddressData] = useState<City>();
+  const [ipAddresses, setIpAddresses] = useState<string[]>([]);
+  const [ipAddressData, setIpAddressData] = useState<City[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const handleRemoveStagingIpAddress = (ipAddress: string) => {
+    setIpAddresses(ipAddresses.filter((address) => address !== ipAddress));
+  };
 
   const fetchIpData = async () => {
-    const res = await fetch(
-      `/api/getGeoLiteCityData?ipAddresses=${ipAddresses[0]}`
-    );
-    const data = await res.json();
-    setIpAddressData(data.result);
+    try {
+      setLoading(true);
+      const res = await fetch("/api/getGeoLiteCityData", {
+        method: "POST",
+        body: JSON.stringify({
+          ipAddresses,
+        }),
+      });
+      const data = await res.json();
+      setIpAddressData(data.result);
+      setIpAddresses([]);
+    } catch (error) {
+      console.error("error: ", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -30,11 +45,25 @@ export function IpLookupForm() {
       <StagingIpAddresses
         ipAddresses={ipAddresses}
         setIpAddresses={setIpAddresses}
+        handleRemoveStagingIpAddress={handleRemoveStagingIpAddress}
       />
-      <Button variant="contained" onClick={fetchIpData}>
+      <Button
+        variant="contained"
+        onClick={fetchIpData}
+        disabled={loading}
+        startIcon={loading && <CircularProgress size={16} />}
+      >
         Geolocate!
       </Button>
-      {ipAddressData && <IpResultCard data={ipAddressData} />}
+      {ipAddressData.length > 0 &&
+        ipAddressData.map((ipAddressData) => {
+          return (
+            <IpResultCard
+              data={ipAddressData}
+              key={ipAddressData.traits.ipAddress}
+            />
+          );
+        })}
     </div>
   );
 }

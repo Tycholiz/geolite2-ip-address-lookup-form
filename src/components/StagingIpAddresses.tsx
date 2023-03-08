@@ -3,13 +3,16 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import styled from "@emotion/styled";
+import { localIpRegex, ipV4Regex, ipV6Regex } from "../utils/constants";
 
 type Props = {
   ipAddresses: string[];
   setIpAddresses: (arg0: string[]) => void;
+  handleRemoveStagingIpAddress: (ipAddress: string) => void;
 };
 
 const StyledForm = styled.form`
@@ -28,18 +31,25 @@ const StyledErrorMessage = styled(Typography)`
   margin-top: 0;
 `;
 
-export function StagingIpAddresses({ ipAddresses, setIpAddresses }: Props) {
+export function StagingIpAddresses({
+  ipAddresses,
+  setIpAddresses,
+  handleRemoveStagingIpAddress,
+}: Props) {
   const [isValidIpAddress, setIsValidIpAddress] = useState(true);
   const [formIpAddress, setFormIpAddress] = useState("");
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleIpFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormIpAddress(event.target.value);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const ipRegex = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/;
-    if (ipRegex.test(formIpAddress)) {
+
+    if (
+      (!localIpRegex.test(formIpAddress) && ipV4Regex.test(formIpAddress)) ||
+      ipV6Regex.test(formIpAddress)
+    ) {
       setIsValidIpAddress(true);
       setIpAddresses([...ipAddresses, formIpAddress]);
       setFormIpAddress("");
@@ -61,16 +71,24 @@ export function StagingIpAddresses({ ipAddresses, setIpAddresses }: Props) {
           variant="outlined"
           size="small"
           value={formIpAddress}
-          onChange={handleChange}
+          onChange={handleIpFormChange}
         />
         <Button type="submit" variant="contained" color="primary">
           +
         </Button>
       </StyledForm>
       <List>
-        {ipAddresses.map((item, index) => (
-          <ListItem key={index}>
-            <ListItemText primary={item} />
+        {ipAddresses.map((ipAddress) => (
+          <ListItem key={ipAddress}>
+            <ListItemText primary={ipAddress} />
+            <ListItemButton>
+              <Button
+                onClick={() => handleRemoveStagingIpAddress(ipAddress)}
+                color="error"
+              >
+                X
+              </Button>
+            </ListItemButton>
           </ListItem>
         ))}
       </List>

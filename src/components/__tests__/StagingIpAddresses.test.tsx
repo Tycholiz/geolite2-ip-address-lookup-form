@@ -31,7 +31,7 @@ describe("StagingIpAddresses", () => {
     expect(input.value).toBe("192.168.0.1");
   });
 
-  it("should submit the form when user enters a valid IP address", () => {
+  it("should submit the form when user enters a valid IP addresses", () => {
     render(
       <StagingIpAddresses
         ipAddresses={ipAddresses}
@@ -41,27 +41,12 @@ describe("StagingIpAddresses", () => {
     const input = screen.getByLabelText(
       "Enter an IP address"
     ) as HTMLInputElement;
-    fireEvent.change(input, { target: { value: "192.168.0.1" } });
+    fireEvent.change(input, { target: { value: "84.107.27.135" } });
     fireEvent.submit(screen.getByRole("button", { name: "+" }));
     expect(mockSetIpAddresses).toHaveBeenCalled();
   });
 
-  it("should submit the form when user enters multiple valid IP addresses", () => {
-    render(
-      <StagingIpAddresses
-        ipAddresses={ipAddresses}
-        setIpAddresses={mockSetIpAddresses}
-      />
-    );
-    const input = screen.getByLabelText(
-      "Enter an IP address"
-    ) as HTMLInputElement;
-    fireEvent.change(input, { target: { value: "192.168.0.1" } });
-    fireEvent.submit(screen.getByRole("button", { name: "+" }));
-    expect(mockSetIpAddresses).toHaveBeenCalled();
-  });
-
-  it("should display an error message when user enters an invalid IP address", () => {
+  it("should display an error message when user enters a string that is not an IP address", () => {
     render(
       <StagingIpAddresses
         ipAddresses={ipAddresses}
@@ -72,6 +57,22 @@ describe("StagingIpAddresses", () => {
       "Enter an IP address"
     ) as HTMLInputElement;
     fireEvent.change(input, { target: { value: "invalid_IP" } });
+    fireEvent.submit(screen.getByRole("button", { name: "+" }));
+    expect(
+      screen.getByText("Please enter a valid IP address.")
+    ).toBeInTheDocument();
+  });
+  it("should display an error message when user enters a non-remote IP address", () => {
+    render(
+      <StagingIpAddresses
+        ipAddresses={ipAddresses}
+        setIpAddresses={mockSetIpAddresses}
+      />
+    );
+    const input = screen.getByLabelText(
+      "Enter an IP address"
+    ) as HTMLInputElement;
+    fireEvent.change(input, { target: { value: "192.168.0.1" } });
     fireEvent.submit(screen.getByRole("button", { name: "+" }));
     expect(
       screen.getByText("Please enter a valid IP address.")
