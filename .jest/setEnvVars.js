@@ -1,0 +1,1 @@
+process.env.GEO_LITE_2_LOCAL_DATABASE_LOCATION = "foo";
