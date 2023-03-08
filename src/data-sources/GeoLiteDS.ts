@@ -8,12 +8,12 @@ class GeoLiteDS {
     // you can use options like `cache` or `watchForUpdates`
   };
 
-  async getData(ipAddress: string): Promise<City> {
+  async getData(ipAddress: string[]): Promise<City[]> {
     const reader = await Reader.open(
       GEO_LITE_2_LOCAL_DATABASE_LOCATION,
       this.options
     );
-    return reader.city(ipAddress);
+    return [reader.city(ipAddress[0])];
   }
 }
 

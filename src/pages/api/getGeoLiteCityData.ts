@@ -2,8 +2,12 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { City } from "@maxmind/geoip2-node";
 import GeoLiteDS from "../../data-sources/GeoLiteDS";
 
+interface RequestBody {
+  ipAddresses: string[];
+}
+
 interface Response {
-  result?: City;
+  result?: City[];
   err?: any;
   message?: string;
 }
@@ -12,7 +16,7 @@ export default async function getGeoLiteCityData(
   req: NextApiRequest,
   res: NextApiResponse<Response>
 ) {
-  const { ipAddresses } = req.query;
+  const { ipAddresses }: RequestBody = JSON.parse(req.body);
 
   if (!ipAddresses) {
     return res.status(500).json({
@@ -23,7 +27,7 @@ export default async function getGeoLiteCityData(
   try {
     const geoLiteDS = new GeoLiteDS();
 
-    const geolocationData = await geoLiteDS.getData(ipAddresses as string);
+    const geolocationData = await geoLiteDS.getData(ipAddresses);
     res.status(200).json({ result: geolocationData });
   } catch (err) {
     return res.status(500).json({
