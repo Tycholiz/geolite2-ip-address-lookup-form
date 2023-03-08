@@ -8,12 +8,17 @@ export function IpLookupForm() {
   const [ipAddresses, setIpAddresses] = useState<string[]>([]);
   const [ipAddressData, setIpAddressData] = useState<City[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleRemoveStagingIpAddress = (ipAddress: string) => {
     setIpAddresses(ipAddresses.filter((address) => address !== ipAddress));
   };
 
   const fetchIpData = async () => {
+    if (!ipAddresses.length) {
+      setError("Please add some IP addresses before performing the lookup");
+      return;
+    }
     try {
       setLoading(true);
       const res = await fetch("/api/getGeoLiteCityData", {
@@ -26,7 +31,7 @@ export function IpLookupForm() {
       setIpAddressData(data.result);
       setIpAddresses([]);
     } catch (error) {
-      console.error("error: ", error);
+      setError(error as string);
     } finally {
       setLoading(false);
     }
@@ -47,6 +52,11 @@ export function IpLookupForm() {
         setIpAddresses={setIpAddresses}
         handleRemoveStagingIpAddress={handleRemoveStagingIpAddress}
       />
+      {error && (
+        <Typography variant="subtitle2" color="error">
+          {error}
+        </Typography>
+      )}
       <Button
         variant="contained"
         onClick={fetchIpData}
