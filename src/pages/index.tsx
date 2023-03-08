@@ -2,8 +2,6 @@ import Head from "next/head";
 import { Typography } from "@mui/material";
 import styled from "styled-components";
 import { IpLookupForm } from "../components/IpLookupForm";
-import GeoLiteDS from "../data-sources/GeoLiteDS";
-import { makeObjectSerializable } from "../utils/makeObjectSerializable";
 
 type Props = {
   data: any;
