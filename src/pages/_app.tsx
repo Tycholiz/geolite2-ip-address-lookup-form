@@ -4,7 +4,7 @@ import { CssBaseline } from "@mui/material";
 import { theme } from "../styles/theme";
 import type { AppProps } from "next/app";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -15,4 +15,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default App;

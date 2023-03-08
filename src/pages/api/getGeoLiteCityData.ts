@@ -17,7 +17,7 @@ export default async function getGeoLiteCityData(
   res: NextApiResponse<Response>
 ) {
   const { ipAddresses }: RequestBody = JSON.parse(req.body);
-  if (ipAddresses.length <= 0) {
+  if (!ipAddresses?.length) {
     return res.status(500).json({
       err: `no IP addresses were passed to the GeoLite database`,
     });
