@@ -7,7 +7,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import styled from "@emotion/styled";
-import { localIpRegex, ipV4Regex, ipV6Regex } from "../utils/constants";
+import { checkIpValidity } from "../utils/checkIpValidity";
 
 type Props = {
   ipAddresses: string[];
@@ -46,10 +46,7 @@ export function StagingIpAddresses({
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (
-      (!localIpRegex.test(formIpAddress) && ipV4Regex.test(formIpAddress)) ||
-      ipV6Regex.test(formIpAddress)
-    ) {
+    if (checkIpValidity(formIpAddress)) {
       setIsValidIpAddress(true);
       setIpAddresses([...ipAddresses, formIpAddress]);
       setFormIpAddress("");
