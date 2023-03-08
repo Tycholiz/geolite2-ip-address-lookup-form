@@ -26,9 +26,11 @@ export default async function getGeoLiteCityData(
 
   try {
     const geoLiteDS = new GeoLiteDS();
-
-    const geolocationData = await geoLiteDS.getData(ipAddresses);
-    res.status(200).json({ result: geolocationData });
+    const geoLiteFetchPromises = ipAddresses.map((ipAddress) =>
+      geoLiteDS.getData(ipAddress)
+    );
+    const allGeoLiteFetchData = await Promise.all(geoLiteFetchPromises);
+    res.status(200).json({ result: allGeoLiteFetchData });
   } catch (err) {
     return res.status(500).json({
       message: `Couldn't retrieve geo location data from GeoLite Database`,

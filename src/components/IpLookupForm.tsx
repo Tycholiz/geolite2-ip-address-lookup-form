@@ -6,7 +6,6 @@ import { IpResultCard } from "./IpResultCard";
 
 export function IpLookupForm() {
   const [ipAddresses, setIpAddresses] = useState<string[]>(["24.207.47.115"]);
-  // TODO: modify this to hold an array, rather than single object
   const [ipAddressData, setIpAddressData] = useState<City[]>([]);
 
   const fetchIpData = async () => {
@@ -37,7 +36,10 @@ export function IpLookupForm() {
       <Button variant="contained" onClick={fetchIpData}>
         Geolocate!
       </Button>
-      {ipAddressData[0] && <IpResultCard data={ipAddressData[0]} />}
+      {ipAddressData.length &&
+        ipAddressData.map((ipAddressData) => {
+          return <IpResultCard data={ipAddressData} />;
+        })}
     </div>
   );
 }
