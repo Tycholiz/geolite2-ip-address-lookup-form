@@ -40,7 +40,10 @@ export function StagingIpAddresses({
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (checkIpValidity(formIpAddress)) {
+    if (
+      checkIpValidity(formIpAddress) &&
+      !ipAddresses.includes(formIpAddress)
+    ) {
       setIsValidIpAddress(true);
       setIpAddresses([...ipAddresses, formIpAddress]);
       setFormIpAddress("");
