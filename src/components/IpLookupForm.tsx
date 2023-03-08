@@ -5,7 +5,7 @@ import { StagingIpAddresses } from "./StagingIpAddresses";
 import { IpResultCard } from "./IpResultCard";
 
 export function IpLookupForm() {
-  const [ipAddresses, setIpAddresses] = useState<string[]>(["24.207.47.115"]);
+  const [ipAddresses, setIpAddresses] = useState<string[]>([]);
   const [ipAddressData, setIpAddressData] = useState<City[]>([]);
 
   const handleRemoveStagingIpAddress = (ipAddress: string) => {
