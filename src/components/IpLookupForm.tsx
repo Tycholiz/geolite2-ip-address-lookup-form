@@ -36,7 +36,7 @@ export function IpLookupForm() {
       <Button variant="contained" onClick={fetchIpData}>
         Geolocate!
       </Button>
-      {ipAddressData.length &&
+      {ipAddressData.length > 0 &&
         ipAddressData.map((ipAddressData) => {
           return <IpResultCard data={ipAddressData} />;
         })}
