@@ -1,11 +1,5 @@
 import { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import Typography from "@mui/material/Typography";
+import { Box, Typography, List, Button, TextField } from "@mui/material";
 import styled from "@emotion/styled";
 import { checkIpValidity } from "../utils/checkIpValidity";
 
@@ -76,17 +70,17 @@ export function StagingIpAddresses({
       </StyledForm>
       <List>
         {ipAddresses.map((ipAddress) => (
-          <ListItem key={ipAddress}>
-            <ListItemText primary={ipAddress} />
-            <ListItemButton>
+          <Box key={ipAddress} sx={{ m: 2 }}>
+            <li>
+              <span>{ipAddress}</span>
               <Button
                 onClick={() => handleRemoveStagingIpAddress(ipAddress)}
                 color="error"
               >
                 X
               </Button>
-            </ListItemButton>
-          </ListItem>
+            </li>
+          </Box>
         ))}
       </List>
     </>

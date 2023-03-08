@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { City } from "@maxmind/geoip2-node";
-import { Button, Typography, CircularProgress } from "@mui/material";
+import { Button, Typography, CircularProgress, Box } from "@mui/material";
 import { StagingIpAddresses } from "./StagingIpAddresses";
 import { IpResultCard } from "./IpResultCard";
 
@@ -42,7 +42,7 @@ export function IpLookupForm() {
   };
 
   return (
-    <div>
+    <Box>
       <Typography variant="subtitle1">
         Welcome to GeoLite2's IP Lookup service! You can use this tool to lookup
         multiple IP address' at the same time.
@@ -81,6 +81,6 @@ export function IpLookupForm() {
             />
           );
         })}
-    </div>
+    </Box>
   );
 }

@@ -8,11 +8,8 @@ type Props = {
 };
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
+  padding: 2em;
 `;
 
 const Title = styled(Typography)`
