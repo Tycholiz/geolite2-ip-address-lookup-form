@@ -8,6 +8,10 @@ export function IpLookupForm() {
   const [ipAddresses, setIpAddresses] = useState<string[]>(["24.207.47.115"]);
   const [ipAddressData, setIpAddressData] = useState<City[]>([]);
 
+  const handleRemoveStagingIpAddress = (ipAddress: string) => {
+    setIpAddresses(ipAddresses.filter((address) => address !== ipAddress));
+  };
+
   const fetchIpData = async () => {
     try {
       const res = await fetch("/api/getGeoLiteCityData", {
@@ -36,6 +40,7 @@ export function IpLookupForm() {
       <StagingIpAddresses
         ipAddresses={ipAddresses}
         setIpAddresses={setIpAddresses}
+        handleRemoveStagingIpAddress={handleRemoveStagingIpAddress}
       />
       <Button variant="contained" onClick={fetchIpData}>
         Geolocate!
