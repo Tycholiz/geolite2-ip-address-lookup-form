@@ -38,7 +38,12 @@ export function IpLookupForm() {
       </Button>
       {ipAddressData.length > 0 &&
         ipAddressData.map((ipAddressData) => {
-          return <IpResultCard data={ipAddressData} />;
+          return (
+            <IpResultCard
+              data={ipAddressData}
+              key={ipAddressData.traits.ipAddress}
+            />
+          );
         })}
     </div>
   );
