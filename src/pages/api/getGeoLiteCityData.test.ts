@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { City } from "@maxmind/geoip2-node";
 import getGeoLiteCityData, { Response } from "./getGeoLiteCityData";
 import GeoLiteDS from "../../data-sources/GeoLiteDS";
 import { mockIpAddressData } from "../../mockData";

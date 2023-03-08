@@ -15,10 +15,6 @@ export function IpLookupForm() {
   };
 
   const fetchIpData = async () => {
-    if (!ipAddresses.length) {
-      setError("Please add some IP addresses before performing the lookup");
-      return;
-    }
     try {
       setLoading(true);
       const res = await fetch("/api/getGeoLiteCityData", {
