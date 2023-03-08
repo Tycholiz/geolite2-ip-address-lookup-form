@@ -2,6 +2,12 @@ import Head from "next/head";
 import { Typography } from "@mui/material";
 import styled from "styled-components";
 import { IpLookupForm } from "../components/IpLookupForm";
+import GeoLiteDS from "../data-sources/GeoLiteDS";
+import { makeObjectSerializable } from "../utils/makeObjectSerializable";
+
+type Props = {
+  data: any;
+};
 
 const Container = styled.div`
   display: flex;
@@ -15,7 +21,7 @@ const Title = styled(Typography)`
   font-size: 3rem;
 `;
 
-export default function Home() {
+export default function Home({ data }: Props) {
   return (
     <>
       <Head>

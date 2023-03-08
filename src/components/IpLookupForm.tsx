@@ -1,9 +1,21 @@
 import { useState } from "react";
-import Typography from "@mui/material/Typography";
+import { City } from "@maxmind/geoip2-node";
+import { Button, Typography } from "@mui/material";
 import { StagingIpAddresses } from "./StagingIpAddresses";
+import { IpResultCard } from "./IpResultCard";
 
 export function IpLookupForm() {
-  const [ipAddresses, setIpAddresses] = useState<string[]>([]);
+  const [ipAddresses, setIpAddresses] = useState<string[]>(["24.207.47.115"]);
+  // TODO: modify this to hold an array, rather than single object
+  const [ipAddressData, setIpAddressData] = useState<City>();
+
+  const fetchIpData = async () => {
+    const res = await fetch(
+      `/api/getGeoLiteCityData?ipAddresses=${ipAddresses[0]}`
+    );
+    const data = await res.json();
+    setIpAddressData(data.result);
+  };
 
   return (
     <div>
@@ -19,6 +31,10 @@ export function IpLookupForm() {
         ipAddresses={ipAddresses}
         setIpAddresses={setIpAddresses}
       />
+      <Button variant="contained" onClick={fetchIpData}>
+        Geolocate!
+      </Button>
+      {ipAddressData && <IpResultCard data={ipAddressData} />}
     </div>
   );
 }
