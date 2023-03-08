@@ -9,7 +9,10 @@ export function IpResultCard({ data }: Props) {
   return (
     <Card>
       <CardContent>
-        <Typography variant="h5" component="h2">
+        <Typography variant="h5" component="h1">
+          {data.traits?.ipAddress}
+        </Typography>
+        <Typography variant="h6" component="h2">
           Country Code: {data.country?.isoCode || `<data indeterminate>`}
         </Typography>
         <Typography color="text.secondary" gutterBottom>
