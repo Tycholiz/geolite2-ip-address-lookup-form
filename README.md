@@ -3,6 +3,7 @@
 1. Install dependencies with `yarn install`
 2. Prepare `.env` file by copying contents of `.env.example` and replacing values.
 3. Download the [GeoLite2 City Database .mmdb file](https://www.maxmind.com/en/accounts/836106/geoip/downloads), and update the env variable in `.env` to point to its location
+4. Start the server with `yarn start`
 
 ### Things to note
 
