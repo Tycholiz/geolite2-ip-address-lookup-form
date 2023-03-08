@@ -9,14 +9,18 @@ export function IpLookupForm() {
   const [ipAddressData, setIpAddressData] = useState<City[]>([]);
 
   const fetchIpData = async () => {
-    const res = await fetch("/api/getGeoLiteCityData", {
-      method: "POST",
-      body: JSON.stringify({
-        ipAddresses,
-      }),
-    });
-    const data = await res.json();
-    setIpAddressData(data.result);
+    try {
+      const res = await fetch("/api/getGeoLiteCityData", {
+        method: "POST",
+        body: JSON.stringify({
+          ipAddresses,
+        }),
+      });
+      const data = await res.json();
+      setIpAddressData(data.result);
+    } catch (error) {
+      console.error("error: ", error);
+    }
   };
 
   return (
